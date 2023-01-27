@@ -66,3 +66,8 @@ func Login(c *fiber.Ctx) error {
 
 	return c.Redirect("/")
 }
+
+func Logout(c *fiber.Ctx) error {
+	c.ClearCookie("token")
+	return c.Redirect("/")
+}
