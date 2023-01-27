@@ -11,4 +11,5 @@ func ViewRouter(a *fiber.App) {
 	a.Get("/", handler.HomeView)
 	a.Get("/register", handler.RegisterView)
 	a.Get("/profile", middleware.LoginRequired, handler.ProfileView)
+	a.Get("/admin", middleware.AdminRequired, handler.AdminView)
 }

@@ -21,6 +21,7 @@ func createAccessToken(email string, role string) string {
 	claims := jwt.MapClaims{}
 	claims["email"] = email
 	claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
+	claims["role"] = role
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	jwt, _ := token.SignedString([]byte("secret-token-key-hardcoded")) //harcoded secret-key

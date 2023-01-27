@@ -13,12 +13,15 @@ func HomeView(c *fiber.Ctx) error {
 
 func RegisterView(c *fiber.Ctx) error {
 	tokenString := c.Cookies("token")
-	token, _ := jwt.Parse(tokenString, func(t *jwt.Token) (interface{}, error) {
-		return []byte("secret-token-key-hardcoded"), nil //harcoded secret-key
-	})
 
-	if token.Valid {
-		return c.Redirect("/")
+	if tokenString != "" {
+		token, _ := jwt.Parse(tokenString, func(t *jwt.Token) (interface{}, error) {
+			return []byte("secret-token-key-hardcoded"), nil //harcoded secret-key
+		})
+
+		if token.Valid {
+			return c.Redirect("/")
+		}
 	}
 
 	return c.Render("register", fiber.Map{})
@@ -26,4 +29,8 @@ func RegisterView(c *fiber.Ctx) error {
 
 func ProfileView(c *fiber.Ctx) error {
 	return c.Render("profile", fiber.Map{})
+}
+
+func AdminView(c *fiber.Ctx) error {
+	return c.Render("admin", fiber.Map{})
 }
