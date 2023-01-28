@@ -30,7 +30,7 @@ func createAccessToken(email string, role string) string {
 
 func Login(c *fiber.Ctx) error {
 	// init harcoded data users
-	users := make([]model.User, 0)
+	users := make([]model.User, 2)
 	users = append(users, model.User{Email: "agent@gmail.com", Password: "agent", Username: "agentusername", Role: "agent"}, model.User{Email: "admin@gmail.com", Password: "admin", Username: "adminusername", Role: "admin"})
 
 	email := c.FormValue("email")
@@ -62,6 +62,7 @@ func Login(c *fiber.Ctx) error {
 		Value:    createAccessToken(user.Email, user.Role),
 		Secure:   true,
 		HTTPOnly: true,
+		Expires:  time.Now().Add(time.Hour * 168),
 	})
 
 	return c.Redirect("/")

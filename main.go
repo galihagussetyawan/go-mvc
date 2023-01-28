@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/encryptcookie"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/template/handlebars"
@@ -17,6 +18,9 @@ func main() {
 	})
 	app.Use(encryptcookie.New(encryptcookie.Config{
 		Key: "wN9Uxz+6RFvUI/J/ir1zYIa1MhrNVi1NbV8J+bd5ojw=", //hardcoded key
+	}))
+	app.Use(compress.New(compress.Config{
+		Level: compress.LevelBestSpeed, // 1
 	}))
 
 	// app middlewares
